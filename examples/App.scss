@@ -1,0 +1,16 @@
+
+body {
+  background: #eee;
+}
+
+.form-wrap {
+  input,
+  select {
+    width: 100%;
+    height: 100%;
+  }
+  .theme-success {
+    margin: 10px;
+    display: block;
+  }
+}

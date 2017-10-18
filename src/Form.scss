@@ -1,0 +1,31 @@
+
+.ui-form-item {
+  position: relative;
+  background: #fff;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15px;
+    right: 0;
+    height: 1px;
+    overflow: hidden;
+    background: #eee;
+  }
+  &:first-child {
+    &::after {
+      display: none;
+    }
+  }
+  &-wrap {
+    display: flex;
+    padding: 0 15px;
+  }
+  &-label {
+    padding: 15px 10px 15px 0;
+    flex: 1;
+  }
+  &-content {
+    flex: 3;
+  }
+}
