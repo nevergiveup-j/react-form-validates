@@ -28,4 +28,13 @@
   &-content {
     flex: 3;
   }
+  &-help {
+    min-height: 30px;
+    line-height: 18px;
+    padding: 6px 8px;
+    margin: 0 15px;
+    font-size: 12px;
+    background: rgba(229,85,70,.1);
+    color: #e55546;
+  }
 }

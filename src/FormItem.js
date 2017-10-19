@@ -8,7 +8,7 @@ class FormItem extends Component {
 
     return (
       <div className={`${prefixCls}-item-help`}>
-
+        请输入邮箱
       </div>
     )
   }
