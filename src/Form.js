@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+
 // import PropTypes from 'prop-types'
+
 import { createForm } from 'rc-form';
 
 
@@ -13,4 +15,4 @@ class Form extends Component {
   }
 }
 
-export default createForm()(Form)
+export default Form

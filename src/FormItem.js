@@ -2,15 +2,43 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+const FIELD_META_PROP = 'data-__meta';
+
 class FormItem extends Component {
+  getHelpMsg() {
+    const { help } = this.props;
+    const { form } = this.context;
+
+    if(help === undefined && form) {
+      return this.getId() ? (form.getFieldError(this.getId()) || []).join(', ') : ''
+    }
+
+    return help;
+  }
+  getOnlyControl() {
+    const children = React.Children.toArray(this.props.children);
+    const child = children.filter((c) => {
+      return c.props && FIELD_META_PROP in c.props;
+    })[0];
+    return child !== undefined ? child : null;
+  }
+  getChildProp(prop) {
+    const child = this.getOnlyControl();
+    return child && child.props && child.props[prop];
+  }
+  getId() {
+    return this.getChildProp('id');
+  }
   renderHelp() {
     const { prefixCls } = this.props;
 
-    return (
-      <div className={`${prefixCls}-item-help`}>
-        请输入邮箱
+    const help = this.getHelpMsg();
+
+    return help ? (
+      <div className={`${prefixCls}-explain`}>
+        {help}
       </div>
-    )
+    ) : null
   }
   renderLabel() {
     const { label, prefixCls } = this.props;
@@ -29,8 +57,6 @@ class FormItem extends Component {
       return child;
     });
 
-
-
     return (
       <div className={`${prefixCls}-item-content`}>
         {children}
@@ -42,6 +68,7 @@ class FormItem extends Component {
 
     const itemClassName = classnames({
       [`${prefixCls}-item`]: true,
+      [`${prefixCls}-item-help`]: !!this.getHelpMsg(),
       [`${className}`]: !!className
     })
 
@@ -71,6 +98,10 @@ FormItem.propTypes = {
   className: React.PropTypes.string,
   id: React.PropTypes.string,
   children: React.PropTypes.node
+}
+
+FormItem.contextTypes = {
+  form: React.PropTypes.object
 }
 
 export default FormItem
