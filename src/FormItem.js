@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 const FIELD_META_PROP = 'data-__meta';
 
@@ -64,13 +64,13 @@ class FormItem extends Component {
     )
   }
   renderItem(children) {
-    const { prefixCls, className} = this.props;
+    const { prefixCls, className } = this.props;
 
     const itemClassName = classnames({
       [`${prefixCls}-item`]: true,
       [`${prefixCls}-item-help`]: !!this.getHelpMsg(),
       [`${className}`]: !!className
-    })
+    });
 
     return (
       <div className={itemClassName}>
@@ -93,15 +93,15 @@ FormItem.defaultProps = {
 }
 
 FormItem.propTypes = {
-  prefixCls: React.PropTypes.string,
-  label: React.PropTypes.node,
-  className: React.PropTypes.string,
-  id: React.PropTypes.string,
-  children: React.PropTypes.node
+  prefixCls: PropTypes.string,
+  label: PropTypes.node,
+  className: PropTypes.string,
+  id: PropTypes.string,
+  children: PropTypes.node
 }
 
 FormItem.contextTypes = {
-  form: React.PropTypes.object
+  form: PropTypes.object
 }
 
 export default FormItem

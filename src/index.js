@@ -1,9 +1,9 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 import createDOMForm from 'rc-form/lib/createDOMForm';
 
-import Form from './Form'
-import FormItem from './FormItem'
+import Form from './Form';
+import FormItem from './FormItem';
 
 import './Form.scss'
 
@@ -34,6 +34,7 @@ Form.create = (o = {}) => {
   }));
 }
 
+Form.Form = Form;
 Form.Item = FormItem;
 
 export default Form
