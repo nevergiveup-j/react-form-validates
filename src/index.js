@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createDOMForm from 'rc-form/lib/createDOMForm';
 
-import Form from './Form';
-import FormItem from './FormItem';
+import Form from './Form.jsx';
+import FormItem from './FormItem.jsx';
+import { FIELD_META_PROP } from './constants';
 
 import './Form.scss'
 
@@ -11,7 +12,7 @@ Form.create = (o = {}) => {
   const options = {
     ...o,
     fieldNameProp: 'id',
-    fieldMetaProp: 'data-__meta',
+    fieldMetaProp: FIELD_META_PROP,
   };
 
   const formWrapper = createDOMForm(options);
@@ -37,4 +38,4 @@ Form.create = (o = {}) => {
 Form.Form = Form;
 Form.Item = FormItem;
 
-export default Form
+export default Form;

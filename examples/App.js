@@ -36,9 +36,12 @@ class App extends Component {
     const { certTypeDatas } = this.state;
     const { getFieldProps } = this.props.form;
 
+    console.log('props', this.props)
+
     const nameProps = getFieldProps('name', {
       rules: [
-        { required: true, min: 5, message: '用户名至少为 5 个字符' },
+        { required: true, message: '用户名至少为 5 个字符' },
+        { required: true, min: 5, regexp: /^\d/, message: '用户名至少为 5 个字符' },
       ]
     });
 
@@ -59,7 +62,6 @@ class App extends Component {
         { required: true, type: 'url', message: '请输入手机号' },
       ]
     });
-
 
     return (
       <div className="form-wrap">
@@ -97,3 +99,4 @@ class App extends Component {
 }
 
 export default createForm()(App);
+// export default App;

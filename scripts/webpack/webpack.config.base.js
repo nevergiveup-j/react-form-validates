@@ -4,23 +4,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
-  entry: {
-    client: [
-      path.join(__dirname, 'examples/index.js'),
-    ],
-  },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, '../../dist'),
     publicPath: '/',
     filename: '[name].js',
   },
   plugins: [
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
+    new ExtractTextPlugin('index.css')
   ],
   module: {
     rules: [
@@ -50,15 +45,16 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new ExtractTextPlugin('style.css')
-  ],
-  devServer: {
-    publicPath: '/',
-    historyApiFallback: true,
-    quiet: true,
-  },
-
+  // resolve: {
+  //   modulesDirectories: [
+  //     '',
+  //     'node_modules',
+  //   ],
+  //   extensions: ['', '.js', '.jsx', '.scss']
+  // },
+  // plugins: [
+  //   new ExtractTextPlugin('index.css')
+  // ],
   node: {
     console: 'mock'
   }

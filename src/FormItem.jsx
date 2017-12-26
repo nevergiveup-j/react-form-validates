@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const FIELD_META_PROP = 'data-__meta';
+import { FIELD_META_PROP } from './constants';
 
 class FormItem extends Component {
   getHelpMsg() {
@@ -10,20 +10,38 @@ class FormItem extends Component {
     const { form } = this.context;
 
     if(help === undefined && form) {
-      return this.getId() ? (form.getFieldError(this.getId()) || []).join(', ') : ''
+      return this.getId() ? (form.getFieldError(this.getId()) || []).join(', ') : '';
     }
 
     return help;
   }
   getOnlyControl() {
     const children = React.Children.toArray(this.props.children);
-    const child = children.filter((c) => {
-      return c.props && FIELD_META_PROP in c.props;
-    })[0];
-    return child !== undefined ? child : null;
+    let child = null;
+
+    children.map((c) => {
+      if(c.props) {
+        if(FIELD_META_PROP in c.props) {
+          child = c;
+        }else{
+          if(c.props.children) {
+            const childs = React.Children.toArray(c.props.children);
+            
+            child = childs.filter((cc) => cc.props && FIELD_META_PROP in cc.props)[0];
+          }
+        }
+      }
+    });
+    
+    return child;
   }
   getChildProp(prop) {
     const child = this.getOnlyControl();
+
+    if(!child) {
+      return null;
+    }
+
     return child && child.props && child.props[prop];
   }
   getId() {
@@ -38,7 +56,7 @@ class FormItem extends Component {
       <div className={`${prefixCls}-explain`}>
         {help}
       </div>
-    ) : null
+    ) : null;
   }
   renderLabel() {
     const { label, prefixCls } = this.props;
@@ -89,15 +107,17 @@ class FormItem extends Component {
 }
 
 FormItem.defaultProps = {
-  prefixCls: 'ui-form'
+  prefixCls: 'ui-form',
+  type: 'normal'
 }
 
 FormItem.propTypes = {
   prefixCls: PropTypes.string,
-  label: PropTypes.node,
+  label:     PropTypes.node,
   className: PropTypes.string,
-  id: PropTypes.string,
-  children: PropTypes.node
+  id:        PropTypes.string,
+  children:  PropTypes.node,
+  type:      PropTypes.oneOf(['normal', 'link', 'select']),
 }
 
 FormItem.contextTypes = {
