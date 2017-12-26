@@ -3,8 +3,8 @@ import { Picker, Input } from 'zarm';
 
 import Form from '../src/index';
 
-// import './App.scss';
-// import 'zarm/styles/index.scss';
+import './App.scss';
+import 'zarm/styles/index.scss';
 
 const createForm = Form.create;
 const FormItem = Form.Item;
