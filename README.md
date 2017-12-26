@@ -131,16 +131,16 @@ export default createForm()(App);
 
 `options`配置
 
-| 参数              | 说明                                                   |  类型   |
-| ---------------- | -------------------------------------------------------| ------- | ------ |
-| onFieldsChange   | 当 Form.Item 子节点的值发生改变时触发，可以把对应的值转存到 Redux store  | Function(props, fields)|
-| mapPropsToFields | 把 props 转为对应的值，可用于把 Redux store 中的值读出             | object  |
+| 参数              | 说明                                                              |  类型                   |
+| ---------------- | ---------------------------------------------------------------- | ----------------------- |
+| onFieldsChange   | 当 Form.Item 子节点的值发生改变时触发，可以把对应的值转存到 Redux store  | Function(props, fields) |
+| mapPropsToFields | 把 props 转为对应的值，可用于把 Redux store 中的值读出                 | object                  |
 
 经过 `Form.create` 包装的组件将会自带 `this.props.form` 属性，`this.props.form` 提供的 API 如下：
 
-| 参数              | 说明                                                   |  类型   |
+| 参数              | 说明                                                   |  类型    | ------ |
 | ---------------- | -------------------------------------------------------| ------- | ------ |
-| getFieldsValue   | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | Function(props, fields)|
+| getFieldsValue   | 获取一组输入控件的值，如不传入参数，则获取全部组件的值         | Function(props, fields)|
 | getFieldValue    | 获取一个输入控件的值	                      | Function(fieldName: string) |
 | setFieldsValue   | 设置一组输入控件的值	                 | Function({ [fieldname]: value }) |
 | setFields        | 设置一组输入控件的值与 Error.                      | Function(obj: object) |
