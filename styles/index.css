@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+}
+.ui-form-item {
+  font-size: 14px;
+  position: relative;
+  background: #fff;
+  color: #333;
+}
+.ui-form-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  right: 0;
+  height: 1px;
+  overflow: hidden;
+  background: #eee;
+}
+.ui-form-item:first-child::after {
+  display: none;
+}
+.ui-form-item-wrap {
+  display: flex;
+  padding: 0 12px;
+}
+.ui-form-item-label {
+  padding: 6px 10px 6px 0;
+  flex: 1;
+}
+.ui-form-item-content {
+  flex: 3;
+}
+.ui-form-item .ui-form-explain {
+  line-height: 18px;
+  padding: 5px 8px;
+  margin: 0 15px;
+  font-size: 12px;
+  background: rgba(229, 85, 70, 0.1);
+  color: #e55546;
+}

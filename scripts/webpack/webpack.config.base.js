@@ -45,16 +45,9 @@ module.exports = {
       }
     ]
   },
-  // resolve: {
-  //   modulesDirectories: [
-  //     '',
-  //     'node_modules',
-  //   ],
-  //   extensions: ['', '.js', '.jsx', '.scss']
-  // },
-  // plugins: [
-  //   new ExtractTextPlugin('index.css')
-  // ],
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   node: {
     console: 'mock'
   }

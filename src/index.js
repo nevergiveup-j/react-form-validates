@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createDOMForm from 'rc-form/lib/createDOMForm';
 
-import Form from './Form.jsx';
-import FormItem from './FormItem.jsx';
+import Form from './Form';
+import FormItem from './FormItem';
 import { FIELD_META_PROP } from './constants';
 
-import './Form.scss'
+import '../styles/index.css';
 
 Form.create = (o = {}) => {
   const options = {
