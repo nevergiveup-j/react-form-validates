@@ -99,4 +99,3 @@ class App extends Component {
 }
 
 export default createForm()(App);
-// export default App;
