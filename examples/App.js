@@ -41,7 +41,7 @@ class App extends Component {
     const nameProps = getFieldProps('name', {
       rules: [
         { required: true, message: '用户名至少为 5 个字符' },
-        { required: true, min: 5, regexp: /^\d/, message: '用户名至少为 5 个字符' },
+        { required: true, min: 5,  regexp: /^\d/, message: '用户名至少为 5 个字符' },
       ]
     });
 
@@ -59,7 +59,8 @@ class App extends Component {
 
     const phoneProps = getFieldProps('phone', {
       rules: [
-        { required: true, type: 'url', message: '请输入手机号' },
+        { required: true, message: '请输入手机号' },
+        // { required: true, type: 'isMobile', message: '请输入正确手机号' },
       ]
     });
 
@@ -69,9 +70,20 @@ class App extends Component {
           <FormItem
             label="姓名"
           >
+            请输入姓名
+          </FormItem>
+          <FormItem
+            label="姓名"
+            description={<div>请输入姓名</div>}
+          >
+          </FormItem>
+          <FormItem
+            label="姓名"
+          >
             <Input type="text" {...nameProps} placeholder="请输入姓名" />
           </FormItem>
           <FormItem
+            hasArrow
             label="证件类型"
           >
             <Picker

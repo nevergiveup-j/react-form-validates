@@ -5,6 +5,7 @@ import createDOMForm from 'rc-form/lib/createDOMForm';
 import Form from './Form';
 import FormItem from './FormItem';
 import { FIELD_META_PROP } from './constants';
+// import { replaceRules } from './rules';
 
 import '../styles/index.css';
 
@@ -25,6 +26,12 @@ Form.create = (o = {}) => {
       form: PropTypes.object.isRequired,
     },
     getChildContext() {
+      // const formContext = Object.assign({}, this.props.form);
+
+      // formContext.getFieldProps = (name, option) => {
+      //   return this.props.form.getFieldProps(name, replaceRules(options));
+      // }
+
       return {
         form: this.props.form,
       };

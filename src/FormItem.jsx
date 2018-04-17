@@ -68,6 +68,10 @@ class FormItem extends Component {
   renderChildren() {
     let { children, prefixCls } = this.props;
 
+    if (!children) {
+      return null;
+    }
+
     children = React.Children.map(children, (child) => {
       if (child && typeof child.type === 'function' && !child.props.size) {
         return React.cloneElement(child, { size: 'large' });
@@ -81,8 +85,21 @@ class FormItem extends Component {
       </div>
     )
   }
+  renderDescription() {
+    const { description, prefixCls } = this.props;
+
+    if (!description) {
+      return null;
+    }
+
+    return (
+      <div className={`${prefixCls}-item-description`}>
+        {description}
+      </div>
+    )
+  }
   renderItem(children) {
-    const { prefixCls, className } = this.props;
+    const { prefixCls, className, hasArrow } = this.props;
 
     const itemClassName = classnames({
       [`${prefixCls}-item`]: true,
@@ -90,11 +107,15 @@ class FormItem extends Component {
       [`${className}`]: !!className
     });
 
+    const arrowRender = hasArrow && <div className={`${prefixCls}-arrow`} />;
+    
     return (
       <div className={itemClassName}>
-        <div className={`${prefixCls}-item-wrap`}>
+        <div className={`${prefixCls}-item-inner`}>
           {this.renderLabel()}
           {children}
+          {this.renderDescription()}
+          {arrowRender}
         </div>
         {this.renderHelp()}
       </div>
@@ -108,16 +129,17 @@ class FormItem extends Component {
 
 FormItem.defaultProps = {
   prefixCls: 'ui-form',
-  type: 'normal'
+  hasArrow: false,
 }
 
 FormItem.propTypes = {
-  prefixCls: PropTypes.string,
-  label:     PropTypes.node,
-  className: PropTypes.string,
-  id:        PropTypes.string,
-  children:  PropTypes.node,
-  type:      PropTypes.oneOf(['normal', 'link', 'select']),
+  prefixCls:   PropTypes.string,
+  label:       PropTypes.node,
+  description: PropTypes.node,
+  className:   PropTypes.string,
+  id:          PropTypes.string,
+  children:    PropTypes.node,
+  hasArrow:    PropTypes.bool,
 }
 
 FormItem.contextTypes = {
