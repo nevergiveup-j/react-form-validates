@@ -60,7 +60,7 @@ class App extends Component {
     const phoneProps = getFieldProps('phone', {
       rules: [
         { required: true, message: '请输入手机号' },
-        // { required: true, type: 'isMobile', message: '请输入正确手机号' },
+        { required: true, type: 'isMobile', message: '请输入正确手机号' },
       ]
     });
 

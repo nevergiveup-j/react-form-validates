@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import createDOMForm from 'rc-form/lib/createDOMForm';
 
 import Form from './Form';
 import FormItem from './FormItem';
 import { FIELD_META_PROP } from './constants';
-// import { replaceRules } from './rules';
+import { replaceRules } from './rules';
 
 import '../styles/index.css';
+
+let formContext = {};
 
 Form.create = (o = {}) => {
   const options = {
@@ -25,19 +27,24 @@ Form.create = (o = {}) => {
     childContextTypes: {
       form: PropTypes.object.isRequired,
     },
+    componentWillMount() {
+      const { form } = this.props;
+
+      formContext = Object.assign({}, form);
+
+      formContext.getFieldProps = (name, option) => {
+        return form.getFieldProps(name, replaceRules(option));
+      }
+    },
     getChildContext() {
-      // const formContext = Object.assign({}, this.props.form);
-
-      // formContext.getFieldProps = (name, option) => {
-      //   return this.props.form.getFieldProps(name, replaceRules(options));
-      // }
-
       return {
         form: this.props.form,
       };
     },
     render() {
-      return <Component {...this.props} />;
+      const { form, ...other } = this.props;
+
+      return <Component form={formContext} {...other} />;
     }
   }));
 }
