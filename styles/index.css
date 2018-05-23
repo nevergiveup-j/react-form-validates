@@ -1,7 +1,5 @@
-body {
-  margin: 0;
-}
 .ui-form-item {
+  margin: 0;
   font-size: 14px;
   position: relative;
   background: #fff;
@@ -24,12 +22,19 @@ body {
   .ui-form-item::after {
     width: 200%;
     height: 200%;
-    transform: scale(.5);
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
     transform-origin: 0 0;
     border-radius: 0
   }
 }
 .ui-form-item .ui-form-item-inner {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   padding: 0 12px;
   align-items: center;
@@ -37,9 +42,15 @@ body {
 .ui-form-item .ui-form-item-label {
   padding: 6px 10px 6px 0;
   line-height: 30px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 .ui-form-item .ui-form-item-content {
+  -webkit-box-flex: 3;
+  -webkit-flex: 3;
+  -ms-flex: 3;
   flex: 3;
 }
 .ui-form-item .ui-form-arrow {
@@ -52,6 +63,7 @@ body {
   border-top: 2px solid #c7c7cc;
   width: 10px;
   height: 10px;
+  -webkit-transform: rotate(45deg);
   transform: rotate(45deg)
 }
 .ui-form-item .ui-form-explain {
