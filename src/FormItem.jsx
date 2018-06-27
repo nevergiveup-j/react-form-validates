@@ -10,7 +10,7 @@ class FormItem extends Component {
     const { form } = this.context;
 
     if(help === undefined && form) {
-      return this.getId() ? (form.getFieldError(this.getId()) || []).join(', ') : '';
+      return this.getId() ? (form.getFieldError(this.getId()) || [])[0] : '';
     }
 
     return help;
