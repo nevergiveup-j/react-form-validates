@@ -14,6 +14,7 @@ import Form from 'react-form-validates';
 
 import './App.scss';
 import 'zarm/styles/index.scss';
+import '~react-form-validates/styles/index.css';
 
 const createForm = Form.create;
 const FormItem = Form.Item;

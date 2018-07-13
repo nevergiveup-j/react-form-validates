@@ -5,6 +5,7 @@ import Form from '../src/index';
 
 import './App.scss';
 import 'zarm/styles/index.scss';
+import '../styles/index.css';
 
 const createForm = Form.create;
 const FormItem = Form.Item;

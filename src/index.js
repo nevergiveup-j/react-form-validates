@@ -7,8 +7,6 @@ import FormItem from './FormItem';
 import { FIELD_META_PROP } from './constants';
 // import { replaceRules } from './rules';
 
-import '../styles/index.css';
-
 let formContext = {};
 
 Form.create = (o = {}) => {
