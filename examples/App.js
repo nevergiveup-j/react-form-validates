@@ -22,22 +22,23 @@ class App extends Component {
       ]
     };
 
-    this.onSubmit = this.onSubmit.bind(this);
+    // this.onSubmit = this.onSubmit.bind(this);
   }
   onSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
+
+    // console.log('this.props====', this.props.form.getFieldsValue());
 
     this.props.form.validateFields((errors, value) => {
       console.log(errors)
       console.log(value)
     })
-
   }
   render() {
     const { certTypeDatas } = this.state;
     const { getFieldProps } = this.props.form;
 
-    console.log('props', this.props)
+    // console.log('props', this.props)
 
     const nameProps = getFieldProps('name', {
       rules: [
@@ -54,20 +55,26 @@ class App extends Component {
 
     const certNoProps = getFieldProps('certNo', {
       rules: [
-        { required: true,  type: 'number', message: '证件号码必须为数字值' },
+        { required: true,  message: '证件号码必须为数字值' },
+        {
+          validator: (rule, value, callback, source, options) => {
+            const errors = ['errors'];
+            callback(errors);
+          }
+        }
       ]
     });
 
     const phoneProps = getFieldProps('phone', {
       rules: [
         { required: true, message: '请输入手机号' },
-        { required: true, type: 'isMobile', message: '请输入正确手机号' },
+        // { required: true, type: 'isMobile', message: '请输入正确手机号' },
       ]
     });
 
     return (
       <div className="form-wrap">
-        <Form onSubmit={this.onSubmit}>
+        <Form>
           <FormItem
             label="姓名"
           >
@@ -103,7 +110,7 @@ class App extends Component {
           </FormItem>
 
           <div className="button-inner">
-            <button type="submit" className="button-submit">提交</button>
+            <button type="submit" onClick={() => this.onSubmit()} className="button-submit">提交</button>
           </div>
         </Form>
       </div>
