@@ -66,7 +66,7 @@ class FormItem extends Component {
     ) : null;
   }
   renderChildren() {
-    let { children, prefixCls } = this.props;
+    let { children, prefixCls, style } = this.props;
 
     if (!children) {
       return null;
@@ -80,20 +80,20 @@ class FormItem extends Component {
     });
 
     return (
-      <div className={`${prefixCls}-item-content`}>
+      <div className={`${prefixCls}-item-content`} style={style}>
         {children}
       </div>
     )
   }
   renderDescription() {
-    const { description, prefixCls } = this.props;
+    const { description, prefixCls, style } = this.props;
 
     if (!description) {
       return null;
     }
 
     return (
-      <div className={`${prefixCls}-item-description`}>
+      <div className={`${prefixCls}-item-description`} style={style}>
         {description}
       </div>
     )

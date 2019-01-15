@@ -72,6 +72,10 @@ class App extends Component {
       ]
     });
 
+    const styles = {
+      textAlign: 'center'
+    }
+
     return (
       <div className="form-wrap">
         <Form>
@@ -87,6 +91,7 @@ class App extends Component {
           </FormItem>
           <FormItem
             label="姓名"
+            style={styles}
           >
             <Input type="text" {...nameProps} placeholder="请输入姓名" />
           </FormItem>
