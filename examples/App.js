@@ -43,7 +43,8 @@ class App extends Component {
     const nameProps = getFieldProps('name', {
       rules: [
         { required: true, message: '用户名至少为 5 个字符' },
-        { required: true, min: 5,  regexp: /^\d/, message: '用户名至少为 5 个字符' },
+        // { required: true, min: 5,  regexp: /^\d/, message: '用户名至少为 5 个字符' },
+        { pattern: '^[\\u4e00-\\u9fa5]{2,}$', message: '字数过少或有特殊符号' },
       ]
     });
 
@@ -56,12 +57,13 @@ class App extends Component {
     const certNoProps = getFieldProps('certNo', {
       rules: [
         { required: true,  message: '证件号码必须为数字值' },
-        {
-          validator: (rule, value, callback, source, options) => {
-            const errors = ['errors'];
-            callback(errors);
-          }
-        }
+        { pattern: '^[^\!\@\#\$\%\`\^\&\*0-9]{2,}$', message: '字数过少或有特殊符号' }
+        // {
+        //   validator: (rule, value, callback, source, options) => {
+        //     const errors = ['errors'];
+        //     callback(errors);
+        //   }
+        // }
       ]
     });
 

@@ -44,6 +44,8 @@ Form.create = (o = {}) => {
     render() {
       // const { form, ...other } = this.props;
 
+      console.log('render===', this.props);
+
       return <Component {...this.props} />
       // return <Component form={formContext} {...other} />;
     }

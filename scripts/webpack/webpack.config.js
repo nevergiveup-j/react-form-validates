@@ -4,6 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = require('./webpack.config.base');
 
+config.mode = 'production';
+
 config.entry = {
   index: [
     './src/index.js'

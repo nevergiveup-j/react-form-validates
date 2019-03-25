@@ -3,10 +3,13 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = require('./webpack.config.base');
+const rootPath = path.resolve(__dirname, '../../');
+
+config.mode = 'development';
 
 config.entry = {
   index: [
-    './examples/index.js'
+    rootPath + '/examples/index.js'
   ]
 }
 
