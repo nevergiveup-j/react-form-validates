@@ -50,6 +50,9 @@
   -ms-flex: 1;
   flex: 1;
 }
+.ui-form-item .ui-form-item-label-right {
+  text-align: right;
+}
 .ui-form-item .ui-form-item-content {
   -webkit-box-flex: 3;
   -webkit-flex: 3;

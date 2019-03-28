@@ -32,11 +32,13 @@ class App extends Component {
     this.props.form.validateFields((errors, value) => {
       console.log(errors)
       console.log(value)
+
+      
     })
   }
   render() {
     const { certTypeDatas } = this.state;
-    const { getFieldProps } = this.props.form;
+    const { getFieldProps, getFieldDecorator } = this.props.form;
 
     // console.log('props', this.props)
 
@@ -78,6 +80,8 @@ class App extends Component {
       textAlign: 'center'
     }
 
+    // console.log('this.props===', this.props);
+
     return (
       <div className="form-wrap">
         <Form>
@@ -95,7 +99,18 @@ class App extends Component {
             label="姓名"
             style={styles}
           >
-            <Input type="text" {...nameProps} placeholder="请输入姓名" />
+            {
+              getFieldDecorator('name', {
+                rules: [
+                  { required: true, message: '用户名至少为 5 个字符' },
+                  // { required: true, min: 5,  regexp: /^\d/, message: '用户名至少为 5 个字符' },
+                  { pattern: '^[\\u4e00-\\u9fa5]{2,}$', message: '字数过少或有特殊符号' },
+                ]
+              })(
+                <Input type="text" placeholder="请输入姓名" />
+              )
+            }
+              
           </FormItem>
           <FormItem
             hasArrow
@@ -117,7 +132,7 @@ class App extends Component {
           </FormItem>
 
           <div className="button-inner">
-            <button type="submit" onClick={() => this.onSubmit()} className="button-submit">提交</button>
+            <button type="button" onClick={() => this.onSubmit()} className="button-submit">提交</button>
           </div>
         </Form>
       </div>

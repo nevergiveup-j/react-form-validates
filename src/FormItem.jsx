@@ -2,38 +2,77 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { FIELD_META_PROP } from './constants';
+import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
+import { FormContext } from './context';
 
 class FormItem extends Component {
+  static defaultProps = {
+    hasArrow: false,
+  };
+
+  static propTypes = {
+    prefixCls:   PropTypes.string,
+    label:       PropTypes.node,
+    description: PropTypes.node,
+    className:   PropTypes.string,
+    id:          PropTypes.string,
+    children:    PropTypes.node,
+    hasArrow:    PropTypes.bool,
+  };
   getHelpMsg() {
     const { help } = this.props;
     const { form } = this.context;
 
-    if(help === undefined && form) {
-      return this.getId() ? (form.getFieldError(this.getId()) || [])[0] : '';
+    if (help === undefined && this.getOnlyControl()) {
+      const { errors } = this.getField();
+      if (errors) {
+        return errors.map((e, index) => {
+          let node = null;
+          if (React.isValidElement(e)) {
+            node = e;
+          } else if (React.isValidElement(e.message)) {
+            node = e.message;
+          }
+
+          return node ? React.cloneElement(node, { key: index }) : e.message;
+        });
+      }
+      return '';
     }
 
     return help;
   }
-  getOnlyControl() {
-    const children = React.Children.toArray(this.props.children);
-    let child = null;
+  getControls(children = this.props.children, recursively = false) {
+    let controls = [];
+    const childrenArray = React.Children.toArray(children);
 
-    children.map((c) => {
-      if(c.props) {
-        if(FIELD_META_PROP in c.props) {
-          child = c;
-        }else{
-          if(c.props.children) {
-            const childs = React.Children.toArray(c.props.children);
-            
-            child = childs.filter((cc) => cc.props && FIELD_META_PROP in cc.props)[0];
-          }
-        }
+    for (let i = 0; i < childrenArray.length; i++) {
+      if (!recursively && controls.length > 0) {
+        break;
       }
-    });
-    
-    return child;
+
+      const child = childrenArray[i];
+
+      if (child.type && (child.type === FormItem || child.type.displayName === 'FormItem')) {
+        continue;
+      }
+
+      if (!child.props) {
+        continue;
+      }
+
+      if (FIELD_META_PROP in child.props) {
+        controls.push(child);
+      } else if (child.props.children) {
+        controls = controls.concat(this.getControls(child.props.children, recursively));
+      }
+    }
+
+    return controls;
+  }
+  getOnlyControl() {
+    const child = this.getControls(this.props.children, false)[0];
+    return child !== undefined ? child : null;
   }
   getChildProp(prop) {
     const child = this.getOnlyControl();
@@ -47,8 +86,11 @@ class FormItem extends Component {
   getId() {
     return this.getChildProp('id');
   }
-  renderHelp() {
-    const { prefixCls } = this.props;
+  getField() {
+    return this.getChildProp(FIELD_DATA_PROP);
+  }
+  renderHelp(context) {
+    const { prefixCls } = context;
 
     const help = this.getHelpMsg();
 
@@ -58,15 +100,17 @@ class FormItem extends Component {
       </div>
     ) : null;
   }
-  renderLabel() {
-    const { label, prefixCls } = this.props;
+  renderLabel(context) {
+    const { label } = this.props;
+    const { prefixCls, labelAlign } = context;
 
     return label ? (
-      <div className={`${prefixCls}-item-label`}>{label}</div>
+      <div className={`${prefixCls}-item-label ${prefixCls}-item-label-${labelAlign}`}>{label}</div>
     ) : null;
   }
-  renderChildren() {
-    let { children, prefixCls, style } = this.props;
+  renderChildren(context) {
+    let { children, style } = this.props;
+    const { prefixCls } = context;
 
     if (!children) {
       return null;
@@ -85,8 +129,9 @@ class FormItem extends Component {
       </div>
     )
   }
-  renderDescription() {
-    const { description, prefixCls, style } = this.props;
+  renderDescription(context) {
+    const { description, style } = this.props;
+    const { prefixCls } = context;
 
     if (!description) {
       return null;
@@ -98,8 +143,10 @@ class FormItem extends Component {
       </div>
     )
   }
-  renderItem(children) {
-    const { prefixCls, className, hasArrow } = this.props;
+  renderItem(context) {
+    const { className, hasArrow } = this.props;
+    const { prefixCls } = context;
+    const children = this.renderChildren(context);
 
     const itemClassName = classnames({
       [`${prefixCls}-item`]: true,
@@ -110,40 +157,25 @@ class FormItem extends Component {
     const arrowRender = hasArrow && <div className={`${prefixCls}-arrow`} />;
     
     return (
+      
       <div className={itemClassName}>
         <div className={`${prefixCls}-item-inner`}>
-          {this.renderLabel()}
+          {this.renderLabel(context)}
           {children}
-          {this.renderDescription()}
+          {this.renderDescription(context)}
           {arrowRender}
         </div>
-        {this.renderHelp()}
+        {this.renderHelp(context)}
       </div>
     )
   }
   render() {
-    const children = this.renderChildren();
-    return this.renderItem(children)
+    return (
+      <FormContext.Consumer>
+        {context => this.renderItem(context)}
+      </FormContext.Consumer>
+    )
   }
-}
-
-FormItem.defaultProps = {
-  prefixCls: 'ui-form',
-  hasArrow: false,
-}
-
-FormItem.propTypes = {
-  prefixCls:   PropTypes.string,
-  label:       PropTypes.node,
-  description: PropTypes.node,
-  className:   PropTypes.string,
-  id:          PropTypes.string,
-  children:    PropTypes.node,
-  hasArrow:    PropTypes.bool,
-}
-
-FormItem.contextTypes = {
-  form: PropTypes.object
 }
 
 export default FormItem
