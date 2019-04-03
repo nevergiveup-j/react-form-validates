@@ -1,5 +1,6 @@
 import createReactContext, { Context } from 'create-react-context';
 
 export const FormContext = createReactContext({
-  labelAlign: 'right',
+  prefixCls: 'ui-form',
+  labelAlign: 'left',
 });
