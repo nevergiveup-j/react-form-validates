@@ -36,6 +36,9 @@ class App extends Component {
       
     })
   }
+  onFieldsValue() {
+    console.log('this.props====', this.props.form.getFieldsValue());
+  }
   render() {
     const { certTypeDatas } = this.state;
     const { getFieldProps, getFieldDecorator } = this.props.form;
@@ -59,13 +62,17 @@ class App extends Component {
     const certNoProps = getFieldProps('certNo', {
       rules: [
         { required: true,  message: '证件号码必须为数字值' },
-        { pattern: '^[^\!\@\#\$\%\`\^\&\*0-9]{2,}$', message: '字数过少或有特殊符号' }
-        // {
-        //   validator: (rule, value, callback, source, options) => {
-        //     const errors = ['errors'];
-        //     callback(errors);
-        //   }
-        // }
+        // { pattern: '^[^\!\@\#\$\%\`\^\&\*0-9]{2,}$', message: '字数过少或有特殊符号' }
+        {
+          validator: (rule, value, callback, source, options) => {
+            if (!value || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(value)) {
+              return callback('证件号码格式错误');
+            }
+
+
+            callback();
+          }
+        }
       ]
     });
 
@@ -107,7 +114,11 @@ class App extends Component {
                   { pattern: '^[\\u4e00-\\u9fa5]{2,}$', message: '字数过少或有特殊符号' },
                 ]
               })(
-                <Input type="text" placeholder="请输入姓名" />
+                <div>
+                  <div>
+                    <Input type="text" placeholder="请输入姓名" />
+                  </div>
+                </div>
               )
             }
               
@@ -133,6 +144,7 @@ class App extends Component {
 
           <div className="button-inner">
             <button type="button" onClick={() => this.onSubmit()} className="button-submit">提交</button>
+            <button type="button" onClick={() => this.onFieldsValue()} className="button-submit">获取全部值</button>
           </div>
         </Form>
       </div>

@@ -157,7 +157,6 @@ export default createForm()(App);
 | 参数          | 说明                                      |  类型   | 可选值 | 默认值  |
 | --------------| -----------------------------------------| ------ | ------- | ----- |
 | label     | label 标签的文本	                             | node   |      |          |
-| prefixCls | 样式类名，默认为 `ui-form`，通常您不需要设置       | string |      | ui-form  |
 | className | 设置 className 值	                          | string |      |          |
 | type      | 样式类型，有右边箭头	        | string |  'normal' 'link' 'select' |      |
 
