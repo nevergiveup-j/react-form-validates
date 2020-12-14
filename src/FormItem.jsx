@@ -18,6 +18,7 @@ class FormItem extends Component {
     id:          PropTypes.string,
     children:    PropTypes.node,
     hasArrow:    PropTypes.bool,
+    style:       PropTypes.any,
   };
   getHelpMsg() {
     const { help } = this.props;
@@ -96,7 +97,7 @@ class FormItem extends Component {
 
     return help ? (
       <div className={`${prefixCls}-explain`}>
-        {help}
+        {help.length ? help[0] : ''}
       </div>
     ) : null;
   }
@@ -144,7 +145,7 @@ class FormItem extends Component {
     )
   }
   renderItem(context) {
-    const { className, hasArrow } = this.props;
+    const { className, hasArrow, style } = this.props;
     const { prefixCls } = context;
     const children = this.renderChildren(context);
 
@@ -158,7 +159,7 @@ class FormItem extends Component {
     
     return (
       
-      <div className={itemClassName}>
+      <div className={itemClassName} style={style}>
         <div className={`${prefixCls}-item-inner`}>
           {this.renderLabel(context)}
           {children}

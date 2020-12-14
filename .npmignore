@@ -10,3 +10,4 @@ scripts
 src
 server.js
 lib/**/__tests__/*.*
+package-lock.json
