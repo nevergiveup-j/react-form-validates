@@ -110,7 +110,7 @@ class FormItem extends Component {
     ) : null;
   }
   renderChildren(context) {
-    let { children, style } = this.props;
+    let { children } = this.props;
     const { prefixCls } = context;
 
     if (!children) {
@@ -125,13 +125,13 @@ class FormItem extends Component {
     });
 
     return (
-      <div className={`${prefixCls}-item-content`} style={style}>
+      <div className={`${prefixCls}-item-content`}>
         {children}
       </div>
     )
   }
   renderDescription(context) {
-    const { description, style } = this.props;
+    const { description } = this.props;
     const { prefixCls } = context;
 
     if (!description) {
@@ -139,7 +139,7 @@ class FormItem extends Component {
     }
 
     return (
-      <div className={`${prefixCls}-item-description`} style={style}>
+      <div className={`${prefixCls}-item-description`}>
         {description}
       </div>
     )
@@ -158,7 +158,6 @@ class FormItem extends Component {
     const arrowRender = hasArrow && <div className={`${prefixCls}-arrow`} />;
     
     return (
-      
       <div className={itemClassName} style={style}>
         <div className={`${prefixCls}-item-inner`}>
           {this.renderLabel(context)}
