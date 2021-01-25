@@ -13,7 +13,7 @@ class FormItem extends Component {
   static propTypes = {
     prefixCls:   PropTypes.string,
     label:       PropTypes.node,
-    description: PropTypes.node,
+    description: PropTypes.any,
     className:   PropTypes.string,
     id:          PropTypes.string,
     children:    PropTypes.node,
