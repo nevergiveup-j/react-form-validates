@@ -18,6 +18,9 @@
   border-radius: 0;
   border-top: 1px solid #ddd
 }
+.ui-form-overflow {
+  overflow: unset;
+}
 @media (-webkit-min-device-pixel-ratio: 2),(min-resolution:2dppx) {
   .ui-form-item::after {
     width: 200%;
@@ -79,4 +82,24 @@
   font-size: 12px;
   background: rgba(229, 85, 70, 0.1);
   color: #e55546;
+}
+.ui-form-item .ui-form-explain-popper {
+  position: absolute;
+  top: -42px;
+  left: 2px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, .7);
+  padding: 12px;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #fff;
+  z-index: 10;
+}
+.ui-form-item .ui-form-explain-popper::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 10px;
+  border: 7px solid transparent;
+  border-top: 7px solid rgba(0, 0, 0, .7);
 }

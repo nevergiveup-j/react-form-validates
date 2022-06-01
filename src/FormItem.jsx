@@ -90,16 +90,38 @@ class FormItem extends Component {
   getField() {
     return this.getChildProp(FIELD_DATA_PROP);
   }
+  getFieldMeta() {
+    return this.getChildProp(FIELD_META_PROP);
+  }
+  gerPopperRequiredRule() {
+    const { rules } = this.getFieldMeta();
+    if (rules && rules.length > 0) {
+      return rules.find(rule => rule.requiredType === 'popper');
+    }
+    return false;
+  }
   renderHelp(context) {
     const { prefixCls } = context;
 
     const help = this.getHelpMsg();
 
-    return help ? (
-      <div className={`${prefixCls}-explain`}>
-        {help.length ? help[0] : ''}
-      </div>
-    ) : null;
+    const helpMessage = help.length ? help[0] : '';
+
+    if (helpMessage) {
+      const requiredRule = this.gerPopperRequiredRule();
+      if (requiredRule) {
+        const { classname } = requiredRule;
+        const cls =  classnames({
+          [`${prefixCls}-explain-popper`]: true,
+          [`${classname}`]: !!classname,
+        });
+        return <div className={cls}>{helpMessage}</div>
+      }
+
+      return <div className={`${prefixCls}-explain`}>{helpMessage}</div>
+    }
+
+    return null;
   }
   renderLabel(context) {
     const { label } = this.props;
@@ -151,6 +173,7 @@ class FormItem extends Component {
 
     const itemClassName = classnames({
       [`${prefixCls}-item`]: true,
+      [`${prefixCls}-overflow`]: !!this.gerPopperRequiredRule(),
       [`${prefixCls}-item-help`]: !!this.getHelpMsg(),
       [`${className}`]: !!className
     });
