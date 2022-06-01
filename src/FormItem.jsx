@@ -94,18 +94,20 @@ class FormItem extends Component {
     return this.getChildProp(FIELD_META_PROP);
   }
   gerPopperRequiredRule() {
-    const { rules } = this.getFieldMeta();
-    if (rules && rules.length > 0) {
-      return rules.find(rule => rule.requiredType === 'popper');
+    const fieldMeta = this.getFieldMeta();
+    if (fieldMeta) {
+      const { rules } = fieldMeta;
+      if (rules && rules.length > 0) {
+        return rules.find(rule => rule.requiredType === 'popper');
+      }
+      return false;
     }
     return false;
   }
   renderHelp(context) {
     const { prefixCls } = context;
-
     const help = this.getHelpMsg();
-
-    const helpMessage = help.length ? help[0] : '';
+    const helpMessage = help && help.length ? help[0] : '';
 
     if (helpMessage) {
       const requiredRule = this.gerPopperRequiredRule();
@@ -115,12 +117,12 @@ class FormItem extends Component {
           [`${prefixCls}-explain-popper`]: true,
           [`${classname}`]: !!classname,
         });
+        
         return <div className={cls}>{helpMessage}</div>
       }
 
       return <div className={`${prefixCls}-explain`}>{helpMessage}</div>
     }
-
     return null;
   }
   renderLabel(context) {
