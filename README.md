@@ -74,6 +74,12 @@ class App extends Component {
       ]
     });
 
+    const popperProps = getFieldProps('popper', {
+      rules: [
+        { required: true, message: '支持popper类型的提示框', requiredType: 'popper', classname: 'your_classname' },
+      ]
+    });
+
     return (
       <div className="form-wrap">
         <Form onSubmit={this.onSubmit}>
